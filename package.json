@@ -1,5 +1,5 @@
 {
-  "name": "electron-vue",
+  "name": "daily-wallpaper",
   "version": "0.0.1",
   "main": "dist/main/index.js",
   "author": "草鞋没号 <308487730@qq.com>",
@@ -16,11 +16,19 @@
     "build": "rimraf dist && npm run build:render && npm run build:preload && npm run build:main && electron-builder"
   },
   "build": {
-    "appId": "308487730@qq.com",
     "asar": true,
+    "productName": "每刻壁纸",
+    "compression": "store",
     "directories": {
-      "output": "release/${version}"
+      "output": "release/${version}",
+      "buildResources": "buildResources"
     },
+    "extraResources": [
+      {
+        "from": "icons",
+        "to": "icons"
+      }
+    ],
     "files": [
       "!node_modules",
       "dist/**"
@@ -32,6 +40,7 @@
       ]
     },
     "win": {
+      "icon": "buildResources/icon.ico",
       "target": [
         {
           "target": "nsis",
@@ -46,12 +55,17 @@
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
-      "deleteAppDataOnUninstall": false
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "./buildResources/icon.ico",
+      "uninstallerIcon": "./buildResources/icon.ico",
+      "installerHeaderIcon": "./buildResources/icon.ico",
+      "shortcutName": "每刻壁纸"
     }
   },
   "dependencies": {
-    "vue": "^3.2.11",
-    "wallpaper": "^5.0.1"
+    "vue": "^3.2.11"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.2",
@@ -69,15 +83,18 @@
     "dotenv": "^10.0.0",
     "electron": "15.0.0-beta.3",
     "electron-builder": "^22.10.5",
+    "electron-store": "^8.0.1",
     "minimist": "^1.2.5",
     "node-schedule": "^2.0.0",
     "ora": "^5.4.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.58.0",
+    "rollup-plugin-copy": "^3.4.0",
     "ts-node": "^10.2.1",
     "tslib": "^2.3.1",
     "typescript": "^4.4.2",
-    "vite": "^2.5.6"
+    "vite": "^2.5.6",
+    "wallpaper": "^5.0.1"
   },
   "keywords": [
     "vite",

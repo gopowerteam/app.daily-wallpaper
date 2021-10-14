@@ -7,7 +7,7 @@ import replace from "@rollup/plugin-replace";
 import alias from "@rollup/plugin-alias";
 import json from "@rollup/plugin-json";
 import { builtins, getEnv } from "./utils";
-
+import copy from "rollup-plugin-copy";
 export interface ConfigOptions {
   env?: typeof process.env.NODE_ENV;
   proc: "main" | "render" | "preload";
@@ -46,8 +46,16 @@ export default function (opts: ConfigOptions) {
         ),
         preventAssignment: true,
       }),
+      copy({
+        targets: [
+          {
+            src: "node_modules/wallpaper/source/windows-wallpaper.exe",
+            dest: "dist/main",
+          },
+        ],
+      }),
     ],
-    external: [...builtins(), "electron", "wallpaper"],
+    external: [...builtins(), "electron"],
     onwarn: (warning) => {
       // https://github.com/rollup/rollup/issues/1089#issuecomment-365395213
       if (warning.code !== "CIRCULAR_DEPENDENCY") {
