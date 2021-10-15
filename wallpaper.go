@@ -22,14 +22,16 @@ const (
 )
 
 func updateWallpaper() {
+	fmt.Println("开始下载壁纸")
 	absPath, err := DownloadImage(DownloadURL)
-	fmt.Println("开始更新壁纸", absPath)
+	fmt.Println("完成下载壁纸", absPath)
 	if err != nil {
 		fmt.Printf("%v", err)
 		return
 	}
 	fmt.Println("开始设置壁纸")
 	SetWindowsWallpaper(absPath)
+	fmt.Println("完成设置壁纸")
 }
 
 func SetWindowsWallpaper(imagePath string) error {
